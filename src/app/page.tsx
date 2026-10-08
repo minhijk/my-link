@@ -17,18 +17,18 @@ export default function Home() {
         {/* 소개 태그 */}
         <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 px-3 py-1 text-xs font-medium text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/40">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-          대학생 · 개발 공부 중
+          웹 개발자 · Software Engineer
         </div>
 
         {/* 소개글 */}
         <p className="mt-4 text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed break-keep">
-          안녕하세요! 바이브 코딩을 배우고 있는 대학생입니다.
+          직관적인 사용자 경험과 깔끔한 코드를 고민하는 개발자입니다. 배움을 즐기며 일상에 가치를 더하는 웹 서비스를 만들어가고 있습니다.
         </p>
 
         {/* 링크 버튼 */}
         <div className="mt-8 flex flex-col gap-3">
           <a
-            href="https://github.com"
+            href="https://github.com/minhijk"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 text-sm font-medium text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors"
