@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* TDS Light Theme Tokens */
+  --tds-background: #ffffff;
+  --tds-grey-background: #f2f4f6; /* grey-100 */
+  --tds-blue-500: #3182f6; /* Toss Canonical Blue */
+  --tds-blue-600: #1b64da; /* Pressed Blue */
+  --tds-blue-50: #e8f3ff; /* Brand Weak Surface */
+
+  --tds-grey-900: #191f28; /* Primary Text, never pure black */
+  --tds-grey-800: #333d4b;
+  --tds-grey-700: #4e5968; /* Secondary Text */
+  --tds-grey-600: #6b7684;
+  --tds-grey-500: #8b95a1;
+  --tds-grey-400: #b0b8c1; /* Disabled text */
+  --tds-grey-300: #d1d6db;
+  --tds-grey-200: #e5e8eb; /* Hairline Border / Divider */
+  --tds-grey-100: #f2f4f6;
+  --tds-grey-50: #f9fafb;
+
+  --tds-green-500: #04b069;
+  --tds-red-500: #f04452;
+  --tds-yellow-500: #ffc342;
+
+  --background: var(--tds-grey-background);
+  --foreground: var(--tds-grey-900);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  /* TDS Dark Theme Tokens */
+  --tds-background: #14171d;
+  --tds-grey-background: #0f1015;
+  --tds-blue-500: #3485fa;
+  --tds-blue-600: #2b70d4;
+  --tds-blue-50: #1c2638;
+
+  --tds-grey-900: #ffffff;
+  --tds-grey-800: #e4e4e5;
+  --tds-grey-700: #c3c3c6;
+  --tds-grey-600: #9e9ea4;
+  --tds-grey-500: #7e7e87;
+  --tds-grey-400: #62626d;
+  --tds-grey-300: #4d4d59;
+  --tds-grey-200: #2c2c35;
+  --tds-grey-100: #202027;
+  --tds-grey-50: #18181e;
+
+  --background: var(--tds-grey-background);
+  --foreground: var(--tds-grey-900);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+
+/* TDS Motion curves */
+.tds-transition {
+  transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Tabular figures for numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hairline border */
+.border-hairline {
+  border-color: var(--tds-grey-200);
 }

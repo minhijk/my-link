@@ -34,7 +34,7 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-9 h-9 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100/60 dark:bg-zinc-800/60" />
+      <div className="w-9 h-9 rounded-full bg-[#f2f4f6] dark:bg-[#202027] border border-[#e5e8eb] dark:border-[#2c2c35]" />
     );
   }
 
@@ -42,13 +42,13 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       type="button"
-      aria-label="테마 전환"
-      className="relative flex items-center justify-center w-9 h-9 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700 hover:scale-105 active:scale-95 transition-all shadow-xs"
+      aria-label="화면 모드 전환"
+      className="flex items-center justify-center w-9 h-9 rounded-full bg-[#f2f4f6] dark:bg-[#202027] text-[#4e5968] dark:text-[#c3c3c6] hover:text-[#191f28] dark:hover:text-white border border-[#e5e8eb] dark:border-[#2c2c35] active:scale-95 transition-all duration-200 cursor-pointer"
     >
       {theme === "dark" ? (
-        <Sun className="w-4 h-4 text-amber-400 transition-transform rotate-0 scale-100" />
+        <Sun className="w-4 h-4 text-[#ffc342]" />
       ) : (
-        <Moon className="w-4 h-4 text-zinc-700 transition-transform rotate-0 scale-100" />
+        <Moon className="w-4 h-4 text-[#4e5968]" />
       )}
     </button>
   );

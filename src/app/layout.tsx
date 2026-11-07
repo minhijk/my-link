@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Minhyeok Lee | MyLink",
-  description: "웹 개발자 이민혁의 프로필 & 링크 모음 (Link-in-bio)",
+  title: "이민혁 | MyLink",
+  description: "웹 개발자 이민혁의 프로필과 링크 모음이에요.",
   icons: {
     icon: "/favicon.ico",
   },
@@ -34,6 +34,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -48,7 +54,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 selection:bg-blue-500/20 selection:text-blue-600 dark:selection:text-blue-300 transition-colors duration-200">
+      <body className="min-h-full flex flex-col bg-[#f2f4f6] dark:bg-[#0f1015] text-[#191f28] dark:text-[#ffffff] selection:bg-[#e8f3ff] selection:text-[#3182f6] dark:selection:bg-[#1c2638] dark:selection:text-[#3485fa] transition-colors duration-200">
         <Header />
         <main className="flex-1 flex flex-col">{children}</main>
         <Footer />

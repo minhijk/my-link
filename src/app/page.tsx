@@ -7,39 +7,37 @@ import {
   Copy,
   Check,
   Share2,
-  ExternalLink,
+  ChevronRight,
   MapPin,
   GraduationCap,
   Sparkles,
-  Code2,
-  FolderGit2,
   Layers,
   Send,
-  MessageSquareHeart,
+  MessageSquare,
   Globe,
-  Terminal,
+  FolderGit2,
 } from "lucide-react";
 import { GithubIcon } from "@/components/Icons";
 
 export default function Home() {
   const [copied, setCopied] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"links" | "stack" | "guestbook">("links");
+  const [activeTab, setActiveTab] = useState<"projects" | "stack" | "guestbook">("projects");
   const [avatarError, setAvatarError] = useState(false);
 
-  // 미니 방명록 상태 (로컬 스토리지 또는 초기값)
+  // 방명록 상태
   const [guestMessages, setGuestMessages] = useState<
     { id: string; name: string; message: string; date: string }[]
   >([
     {
       id: "1",
-      name: "방문자",
-      message: "프로필 사이트 디자인이 정말 깔끔하고 멋져요! 화이팅입니다 👏",
-      date: "방금 전",
+      name: "동료 개발자",
+      message: "화면이 정말 깔끔하고 정갈해서 보기 편해요! 응원해요.",
+      date: "오늘",
     },
     {
       id: "2",
-      name: "동료 개발자",
-      message: "좋은 프로젝트 많이 만들어주세요! 응원합니다.",
+      name: "방문자",
+      message: "좋은 프로젝트 많이 만들어주세요. 계속 지켜볼게요!",
       date: "어제",
     },
   ]);
@@ -78,92 +76,73 @@ export default function Home() {
   };
 
   const techStack = [
-    { name: "Next.js", category: "Framework", color: "from-zinc-700 to-zinc-900" },
-    { name: "React 19", category: "Library", color: "from-sky-500 to-blue-600" },
-    { name: "TypeScript", category: "Language", color: "from-blue-600 to-indigo-600" },
-    { name: "Tailwind CSS", category: "Styling", color: "from-cyan-500 to-teal-500" },
-    { name: "Python", category: "Language", color: "from-yellow-500 to-amber-600" },
-    { name: "C / System", category: "Language", color: "from-slate-600 to-zinc-700" },
-    { name: "Git & GitHub", category: "DevOps", color: "from-orange-500 to-red-500" },
+    { name: "Next.js", category: "프레임워크" },
+    { name: "React", category: "라이브러리" },
+    { name: "TypeScript", category: "언어" },
+    { name: "Tailwind CSS", category: "스타일링" },
+    { name: "Python", category: "언어" },
+    { name: "C / 시스템", category: "언어" },
+    { name: "Git & GitHub", category: "협업 도구" },
   ];
 
   const featuredProjects = [
     {
+      id: "mylink",
       title: "MyLink",
-      desc: "Next.js 16과 Tailwind CSS로 구축한 개인 맞춤형 Link-in-bio & 프로필 웹앱",
-      badge: "Main Project",
+      category: "개인 프로젝트",
+      desc: "Next.js 16과 Tailwind CSS로 구현한 개인 링크 모음 웹앱",
+      badge: "대표 프로젝트",
       url: "https://github.com/minhijk/my-link",
-      tech: ["Next.js", "TypeScript", "Tailwind"],
+      initial: "M",
     },
     {
+      id: "pcap",
       title: "PCAP-Programming",
-      desc: "네트워크 패킷 캡처 및 프로토콜 구조 분석 도구",
-      badge: "Network & Security",
+      category: "네트워크 & 보안",
+      desc: "C 언어 기반 네트워크 패킷 캡처 및 프로토콜 분석 도구",
+      badge: "시스템",
       url: "https://github.com/minhijk/PCAP-Programming",
-      tech: ["C", "Network", "Pcap"],
+      initial: "P",
     },
     {
+      id: "smu",
       title: "smu-project",
-      desc: "컴퓨터소프트웨어 학부 과제 및 협업 개발 프로젝트 레포지토리",
-      badge: "Academic",
+      category: "학업 및 협업",
+      desc: "소프트웨어 학부 알고리즘 및 팀 프로젝트 저장소",
+      badge: "팀 프로젝트",
       url: "https://github.com/minhijk/smu-project",
-      tech: ["Software Eng", "Collab"],
+      initial: "S",
     },
   ];
 
   return (
-    <div className="relative min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center px-4 py-10 sm:py-16 overflow-hidden">
-      {/* 앰비언트 글로우 배경 (Ambient Glow) */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[700px] h-[350px] bg-gradient-to-tr from-blue-500/20 via-indigo-500/15 to-purple-500/20 blur-[100px] rounded-full dark:from-blue-500/15 dark:via-indigo-500/10 dark:to-purple-500/15 -z-10"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-20 right-1/4 w-[300px] h-[250px] bg-emerald-500/10 blur-[90px] rounded-full -z-10"
-      />
-
-      {/* 토스트 알림 (복사 완료) */}
+    <div className="min-h-[calc(100vh-8rem)] bg-[#f2f4f6] dark:bg-[#0f1015] px-4 py-6 sm:py-10 flex flex-col items-center">
+      {/* TDS Toast - grey-900 표면 + green-500 체크 아이콘 */}
       {copied && (
-        <div className="fixed top-20 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900/90 text-white dark:bg-zinc-100 dark:text-zinc-900 shadow-xl backdrop-blur-md text-sm font-medium animate-in fade-in slide-in-from-top-4 duration-200">
-          <Check className="w-4 h-4 text-emerald-400 dark:text-emerald-600" />
+        <div className="fixed top-20 z-50 flex items-center gap-2.5 px-4 py-3 rounded-[14px] bg-[#191f28] text-white shadow-[0_8px_24px_rgba(25,31,40,0.16)] text-[14px] font-medium animate-in fade-in slide-in-from-top-3 duration-200">
+          <div className="w-5 h-5 rounded-full bg-[#04b069] flex items-center justify-center shrink-0">
+            <Check className="w-3.5 h-3.5 text-white stroke-[3]" />
+          </div>
           <span>
             {copied === "email"
-              ? "이메일 주소가 복사되었습니다!"
-              : "페이지 링크가 복사되었습니다!"}
+              ? "이메일 주소를 복사했어요."
+              : "프로필 링크를 복사했어요."}
           </span>
         </div>
       )}
 
-      {/* 메인 프로필 카드 */}
-      <div className="w-full max-w-xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-2xl shadow-blue-500/5 overflow-hidden transition-all">
-        {/* 상단 장식 배너 */}
-        <div className="relative h-32 sm:h-36 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-4">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/20 via-transparent to-black/20" />
-          
-          {/* 공유 버튼 */}
-          <button
-            onClick={handleShare}
-            type="button"
-            className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/25 hover:bg-black/40 text-white backdrop-blur-md text-xs font-medium border border-white/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
-            title="프로필 공유하기"
-          >
-            <Share2 className="w-3.5 h-3.5" />
-            <span>공유</span>
-          </button>
-        </div>
-
-        {/* 프로필 본문 */}
-        <div className="px-6 sm:px-8 pb-8">
-          {/* 아바타 & 상태 */}
-          <div className="relative flex items-end justify-between -mt-16 sm:-mt-18 mb-4">
-            <div className="relative group">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl ring-4 ring-white dark:ring-zinc-900 shadow-xl overflow-hidden bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-3xl font-bold transition-transform duration-300 group-hover:scale-[1.02]">
+      <div className="w-full max-w-xl space-y-3.5">
+        {/* 1. 프로필 요약 카드 (TDS Primary Card) */}
+        <section className="bg-white dark:bg-[#14171d] rounded-[24px] p-6 sm:p-7 border border-[#e5e8eb] dark:border-[#2c2c35] shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-center gap-4">
+              {/* 둥근 아바타 (TDS radius-2xl: 20px) */}
+              <div className="relative w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-[20px] bg-[#e8f3ff] dark:bg-[#1c2638] flex items-center justify-center text-[#3182f6] font-bold text-2xl overflow-hidden shrink-0 border border-[#e5e8eb] dark:border-[#2c2c35]">
                 {!avatarError ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src="https://avatars.githubusercontent.com/u/166505760?v=4"
-                    alt="Minhyeok Lee Avatar"
+                    alt="이민혁 프로필"
                     className="w-full h-full object-cover"
                     onError={() => setAvatarError(true)}
                   />
@@ -171,306 +150,238 @@ export default function Home() {
                   <span>이</span>
                 )}
               </div>
-              {/* 온라인 상태 뱃지 */}
-              <div
-                className="absolute -bottom-1 -right-1 flex items-center gap-1 px-2 py-0.5 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs"
-                title="Available for projects & collaboration"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
-                  Active
-                </span>
+
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-[22px] sm:text-[24px] font-bold text-[#191f28] dark:text-[#ffffff] tracking-tight">
+                    이민혁
+                  </h1>
+                  <span className="text-[13px] font-medium px-2 py-0.5 rounded-full bg-[#f2f4f6] dark:bg-[#202027] text-[#6b7684] dark:text-[#9e9ea4]">
+                    @minhijk
+                  </span>
+                </div>
+                <p className="mt-0.5 text-[14px] text-[#4e5968] dark:text-[#c3c3c6] font-medium">
+                  웹 개발자 · Software Engineer
+                </p>
               </div>
             </div>
 
-            {/* 빠른 액션 버튼 (이메일 & 깃허브) */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => handleCopy("166505760+minhijk@users.noreply.github.com", "email")}
-                type="button"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/80 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-700/80 hover:text-blue-600 dark:hover:text-blue-400 transition-all cursor-pointer"
-                title="이메일 복사"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>이메일</span>
-                <Copy className="w-3 h-3 opacity-60" />
-              </button>
-
-              <a
-                href="https://github.com/minhijk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 text-xs font-medium hover:bg-zinc-800 dark:hover:bg-white transition-all shadow-xs"
-              >
-                <GithubIcon className="w-3.5 h-3.5" />
-                <span>GitHub</span>
-              </a>
-            </div>
-          </div>
-
-          {/* 이름 & 아이덴티티 */}
-          <div>
-            <div className="flex items-baseline gap-2 flex-wrap">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-50 tracking-tight">
-                이민혁
-              </h1>
-              <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-                Minhyeok Lee
-              </span>
-              <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
-                @minhijk
-              </span>
-            </div>
-
-            {/* 메인 직군 뱃지 */}
-            <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 dark:from-blue-500/20 dark:via-indigo-500/20 dark:to-purple-500/20 px-3.5 py-1 text-xs font-semibold text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/40">
-              <Sparkles className="w-3.5 h-3.5 text-blue-500" />
-              <span>웹 개발자 · Software Engineer</span>
-            </div>
-
-            {/* 소개글 */}
-            <p className="mt-3.5 text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed break-keep font-normal">
-              직관적인 사용자 경험과 깔끔한 코드를 고민하는 개발자입니다. 배움을 즐기며 일상에 실질적인 가치를 더하는 웹 서비스를 만들어가고 있습니다.
-            </p>
-
-            {/* 메타 인포 칩들 */}
-            <div className="mt-4 flex flex-wrap gap-2 text-xs text-zinc-600 dark:text-zinc-400">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100/80 dark:bg-zinc-800/60 border border-zinc-200/60 dark:border-zinc-800">
-                <MapPin className="w-3.5 h-3.5 text-rose-500" />
-                Seoul, Korea
-              </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100/80 dark:bg-zinc-800/60 border border-zinc-200/60 dark:border-zinc-800">
-                <GraduationCap className="w-3.5 h-3.5 text-blue-500" />
-                상명대학교 (컴퓨터과학)
-              </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100/80 dark:bg-zinc-800/60 border border-zinc-200/60 dark:border-zinc-800">
-                <Code2 className="w-3.5 h-3.5 text-emerald-500" />
-                Web & Security
-              </span>
-            </div>
-          </div>
-
-          {/* 탭 네비게이션 */}
-          <div className="mt-7 border-b border-zinc-200 dark:border-zinc-800 flex gap-6 text-sm font-medium">
+            {/* 상단 공유 버튼 (TDS Ghost icon button) */}
             <button
-              onClick={() => setActiveTab("links")}
+              onClick={handleShare}
               type="button"
-              className={`pb-2.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer ${
-                activeTab === "links"
-                  ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 font-semibold"
-                  : "border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+              className="w-9 h-9 rounded-full bg-[#f2f4f6] dark:bg-[#202027] text-[#4e5968] dark:text-[#c3c3c6] hover:text-[#191f28] dark:hover:text-white flex items-center justify-center transition-colors active:scale-95 cursor-pointer"
+              title="프로필 공유하기"
+            >
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* 소개글 - 토스 해요체 */}
+          <div className="mt-5 pt-5 border-t border-[#f2f4f6] dark:border-[#202027]">
+            <p className="text-[15px] sm:text-[16px] text-[#333d4b] dark:text-[#e4e4e5] leading-[1.6] break-keep font-normal">
+              직관적인 사용자 경험과 깔끔한 코드를 고민해요. 배움을 즐기며 일상에 가치를 더하는 서비스를 만들고 있어요.
+            </p>
+          </div>
+
+          {/* 태그 칩 (TDS Chips: 34px full pill) */}
+          <div className="mt-4 flex flex-wrap gap-2 text-[13px] text-[#4e5968] dark:text-[#c3c3c6]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f2f4f6] dark:bg-[#202027] font-medium">
+              <MapPin className="w-3.5 h-3.5 text-[#3182f6]" />
+              서울
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f2f4f6] dark:bg-[#202027] font-medium">
+              <GraduationCap className="w-3.5 h-3.5 text-[#3182f6]" />
+              상명대학교 컴퓨터과학
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e8f3ff] dark:bg-[#1c2638] text-[#3182f6] dark:text-[#3485fa] font-medium">
+              <Sparkles className="w-3.5 h-3.5" />
+              개발 협업 환영
+            </span>
+          </div>
+
+          {/* 빠른 액션 버튼 2단 (보조 액션: grey-100 채움) */}
+          <div className="mt-6 grid grid-cols-2 gap-2.5">
+            <button
+              onClick={() => handleCopy("166505760+minhijk@users.noreply.github.com", "email")}
+              type="button"
+              className="h-11 rounded-[14px] bg-[#f2f4f6] hover:bg-[#e5e8eb] dark:bg-[#202027] dark:hover:bg-[#2c2c35] text-[#191f28] dark:text-[#ffffff] text-[14px] font-semibold flex items-center justify-center gap-1.5 transition-all duration-150 active:scale-[0.98] cursor-pointer"
+            >
+              <Mail className="w-4 h-4 text-[#6b7684]" />
+              <span>이메일 복사</span>
+            </button>
+
+            <a
+              href="https://github.com/minhijk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-11 rounded-[14px] bg-[#f2f4f6] hover:bg-[#e5e8eb] dark:bg-[#202027] dark:hover:bg-[#2c2c35] text-[#191f28] dark:text-[#ffffff] text-[14px] font-semibold flex items-center justify-center gap-1.5 transition-all duration-150 active:scale-[0.98]"
+            >
+              <GithubIcon className="w-4 h-4 fill-current text-[#191f28] dark:text-white" />
+              <span>GitHub 가기</span>
+            </a>
+          </div>
+        </section>
+
+        {/* 2. 화면당 단 하나의 Toss Blue 강조 CTA (Primary Button) */}
+        <Link
+          href="/links"
+          className="group w-full h-14 rounded-[16px] bg-[#3182f6] hover:bg-[#1b64da] dark:bg-[#3485fa] dark:hover:bg-[#2b70d4] text-white px-5 flex items-center justify-between font-semibold text-[16px] shadow-[0_4px_12px_rgba(49,130,246,0.25)] transition-all duration-150 active:scale-[0.99]"
+        >
+          <div className="flex items-center gap-3">
+            <Globe className="w-5 h-5 text-white/90" />
+            <span>내 링크 모음 보기</span>
+          </div>
+          <ChevronRight className="w-5 h-5 text-white/80 group-hover:translate-x-0.5 transition-transform" />
+        </Link>
+
+        {/* 3. TDS Segmented Control & 콘텐츠 섹션 */}
+        <section className="bg-white dark:bg-[#14171d] rounded-[24px] p-5 sm:p-6 border border-[#e5e8eb] dark:border-[#2c2c35] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+          {/* Segmented Control (토스 분절 컨트롤: grey-100 트랙 + 흰색 분절) */}
+          <div className="p-1 rounded-[14px] bg-[#f2f4f6] dark:bg-[#202027] grid grid-cols-3 gap-1 text-[13px] sm:text-[14px]">
+            <button
+              onClick={() => setActiveTab("projects")}
+              type="button"
+              className={`py-2 rounded-[10px] font-semibold transition-all duration-150 cursor-pointer ${
+                activeTab === "projects"
+                  ? "bg-white dark:bg-[#14171d] text-[#191f28] dark:text-white shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
+                  : "text-[#6b7684] dark:text-[#9e9ea4] hover:text-[#191f28] dark:hover:text-white"
               }`}
             >
-              <FolderGit2 className="w-4 h-4" />
-              <span>링크 & 프로젝트</span>
+              주요 프로젝트
             </button>
             <button
               onClick={() => setActiveTab("stack")}
               type="button"
-              className={`pb-2.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer ${
+              className={`py-2 rounded-[10px] font-semibold transition-all duration-150 cursor-pointer ${
                 activeTab === "stack"
-                  ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 font-semibold"
-                  : "border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                  ? "bg-white dark:bg-[#14171d] text-[#191f28] dark:text-white shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
+                  : "text-[#6b7684] dark:text-[#9e9ea4] hover:text-[#191f28] dark:hover:text-white"
               }`}
             >
-              <Layers className="w-4 h-4" />
-              <span>기술 스택</span>
+              기술 스택
             </button>
             <button
               onClick={() => setActiveTab("guestbook")}
               type="button"
-              className={`pb-2.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer ${
+              className={`py-2 rounded-[10px] font-semibold transition-all duration-150 cursor-pointer ${
                 activeTab === "guestbook"
-                  ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 font-semibold"
-                  : "border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200"
+                  ? "bg-white dark:bg-[#14171d] text-[#191f28] dark:text-white shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
+                  : "text-[#6b7684] dark:text-[#9e9ea4] hover:text-[#191f28] dark:hover:text-white"
               }`}
             >
-              <MessageSquareHeart className="w-4 h-4" />
-              <span>응원 한마디</span>
+              응원 한마디
             </button>
           </div>
 
-          {/* 탭 1: 링크 & 프로젝트 */}
-          {activeTab === "links" && (
-            <div className="mt-6 space-y-3">
-              {/* 내 링크 모음 전체보기 배너 카드 */}
-              <Link
-                href="/links"
-                className="group relative flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg hover:shadow-blue-500/20 transition-all hover:-translate-y-0.5"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-xs">
-                    <Globe className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sm sm:text-base">
-                      내 링크 모음 (Link-in-Bio) 보러가기
-                    </h3>
-                    <p className="text-xs text-blue-100">
-                      카테고리별 유용한 링크와 작업물들을 한눈에 확인하세요
-                    </p>
-                  </div>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                  <ExternalLink className="w-4 h-4 text-white" />
-                </div>
-              </Link>
-
-              {/* GitHub 바로가기 카드 */}
-              <a
-                href="https://github.com/minhijk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between p-3.5 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-zinc-800/40 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/70 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all hover:-translate-y-0.5"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center shadow-xs">
-                    <GithubIcon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-semibold text-sm text-zinc-900 dark:text-zinc-100">
-                        GitHub Profile
-                      </span>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-mono">
-                        @minhijk
-                      </span>
+          {/* 탭 1: 주요 프로젝트 (TDS ListRow 패턴) */}
+          {activeTab === "projects" && (
+            <div className="mt-4 divide-y divide-[#f2f4f6] dark:divide-[#202027]">
+              {featuredProjects.map((p) => (
+                <a
+                  key={p.id}
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between py-3.5 hover:bg-[#f9fafb] dark:hover:bg-[#18181e] px-2 rounded-[16px] transition-colors"
+                >
+                  <div className="flex items-center gap-3.5 min-w-0 pr-2">
+                    {/* TDS 44px 아바타 슬롯 (radius 14) */}
+                    <div className="w-11 h-11 rounded-[14px] bg-[#e8f3ff] dark:bg-[#1c2638] text-[#3182f6] dark:text-[#3485fa] flex items-center justify-center font-bold text-base shrink-0">
+                      {p.initial}
                     </div>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                      오픈소스 기여 및 프로젝트 저장소 둘러보기
-                    </p>
-                  </div>
-                </div>
-                <ExternalLink className="w-4 h-4 text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200 group-hover:translate-x-0.5 transition-all" />
-              </a>
 
-              {/* 대표 프로젝트 섹션 */}
-              <div className="pt-2">
-                <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
-                  Featured Projects
-                </span>
-                <div className="mt-2 space-y-2.5">
-                  {featuredProjects.map((p) => (
-                    <a
-                      key={p.title}
-                      href={p.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block p-3.5 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50/50 dark:bg-zinc-800/30 hover:bg-white dark:hover:bg-zinc-850 hover:border-blue-300 dark:hover:border-blue-900 hover:shadow-sm transition-all"
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {p.title}
-                          </h4>
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/40 font-medium">
-                            {p.badge}
-                          </span>
-                        </div>
-                        <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all" />
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-[15px] text-[#191f28] dark:text-white truncate">
+                          {p.title}
+                        </h3>
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#f2f4f6] dark:bg-[#202027] text-[#6b7684] dark:text-[#9e9ea4] font-medium shrink-0">
+                          {p.badge}
+                        </span>
                       </div>
-                      <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-400 line-clamp-1">
+                      <p className="text-[13px] text-[#6b7684] dark:text-[#9e9ea4] truncate mt-0.5">
                         {p.desc}
                       </p>
-                      <div className="mt-2 flex items-center gap-1.5">
-                        {p.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* 탭 2: 기술 스택 */}
-          {activeTab === "stack" && (
-            <div className="mt-6 space-y-5">
-              <div>
-                <h3 className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider mb-3">
-                  Core Technologies
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {techStack.map((tech) => (
-                    <div
-                      key={tech.name}
-                      className="group flex items-center gap-2 px-3 py-2 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-zinc-800/40 hover:bg-white dark:hover:bg-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all hover:scale-105"
-                    >
-                      <div
-                        className={`w-2.5 h-2.5 rounded-full bg-gradient-to-r ${tech.color}`}
-                      />
-                      <span className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">
-                        {tech.name}
-                      </span>
-                      <span className="text-[10px] text-zinc-400 dark:text-zinc-500">
-                        {tech.category}
-                      </span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+
+                  <ChevronRight className="w-4 h-4 text-[#b0b8c1] group-hover:text-[#3182f6] group-hover:translate-x-0.5 transition-all shrink-0" />
+                </a>
+              ))}
+            </div>
+          )}
+
+          {/* 탭 2: 기술 스택 (TDS Chip Grid) */}
+          {activeTab === "stack" && (
+            <div className="mt-5 space-y-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {techStack.map((tech) => (
+                  <div
+                    key={tech.name}
+                    className="p-3.5 rounded-[16px] bg-[#f9fafb] dark:bg-[#18181e] border border-[#e5e8eb] dark:border-[#2c2c35]"
+                  >
+                    <span className="text-[11px] font-medium text-[#8b95a1] dark:text-[#7e7e87] block">
+                      {tech.category}
+                    </span>
+                    <span className="text-[14px] font-bold text-[#191f28] dark:text-white mt-0.5 block">
+                      {tech.name}
+                    </span>
+                  </div>
+                ))}
               </div>
 
-              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/40 border border-zinc-200/80 dark:border-zinc-800/80">
-                <div className="flex items-center gap-2 mb-2 text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                  <Terminal className="w-3.5 h-3.5 text-blue-500" />
-                  <span>개발 가치관 & 철학</span>
-                </div>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed break-keep">
-                  복잡한 로직일수록 단순하고 명료하게 분리하며, 사용자가 체감하는 반응 속도와 접근성을 중요하게 생각합니다. 새로운 기술 스택을 두려워하지 않고 실무 적용성을 고민합니다.
-                </p>
+              <div className="p-4 rounded-[16px] bg-[#f2f4f6] dark:bg-[#202027] text-[13px] text-[#4e5968] dark:text-[#c3c3c6] leading-relaxed break-keep">
+                <span className="font-bold text-[#191f28] dark:text-white block mb-1">
+                  개발할 때 가장 중요하게 생각해요
+                </span>
+                복잡한 비즈니스 로직도 사용자가 마주할 때는 직관적이고 단순해야 한다고 믿어요. 최신 웹 기술을 실무에 유연하게 녹여내요.
               </div>
             </div>
           )}
 
-          {/* 탭 3: 응원 한마디 (방명록) */}
+          {/* 탭 3: 응원 한마디 (TDS Style Clean Form & List) */}
           {activeTab === "guestbook" && (
-            <div className="mt-6 space-y-4">
+            <div className="mt-5 space-y-4">
               <form onSubmit={handleAddMessage} className="space-y-2.5">
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    placeholder="작성자 이름 (기본값: 익명)"
-                    className="w-1/3 px-3 py-2 rounded-xl text-xs border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                    placeholder="이름"
+                    className="w-1/3 h-11 px-3.5 rounded-[12px] text-[13px] bg-[#f2f4f6] dark:bg-[#202027] border border-[#e5e8eb] dark:border-[#2c2c35] text-[#191f28] dark:text-white placeholder:text-[#8b95a1] focus:outline-none focus:border-[#3182f6] focus:bg-white dark:focus:bg-[#14171d] transition-colors"
                   />
                   <input
                     type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="응원의 한마디를 남겨주세요!"
+                    placeholder="응원 메시지를 남겨주세요."
                     required
-                    className="flex-1 px-3 py-2 rounded-xl text-xs border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                    className="flex-1 h-11 px-3.5 rounded-[12px] text-[13px] bg-[#f2f4f6] dark:bg-[#202027] border border-[#e5e8eb] dark:border-[#2c2c35] text-[#191f28] dark:text-white placeholder:text-[#8b95a1] focus:outline-none focus:border-[#3182f6] focus:bg-white dark:focus:bg-[#14171d] transition-colors"
                   />
                   <button
                     type="submit"
-                    className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-1 transition-all shadow-xs cursor-pointer active:scale-95"
+                    className="h-11 px-4 rounded-[12px] bg-[#3182f6] hover:bg-[#1b64da] text-white text-[13px] font-semibold shrink-0 transition-colors active:scale-95 cursor-pointer"
                   >
-                    <Send className="w-3 h-3" />
-                    <span>등록</span>
+                    등록
                   </button>
                 </div>
               </form>
 
-              <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+              <div className="space-y-2 pt-1 max-h-60 overflow-y-auto">
                 {guestMessages.map((item) => (
                   <div
                     key={item.id}
-                    className="p-3 rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-zinc-50/50 dark:bg-zinc-800/30 text-xs"
+                    className="p-3.5 rounded-[16px] bg-[#f9fafb] dark:bg-[#18181e] border border-[#e5e8eb] dark:border-[#2c2c35]"
                   >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-semibold text-zinc-800 dark:text-zinc-200">
+                    <div className="flex items-center justify-between text-[12px] mb-1">
+                      <span className="font-bold text-[#191f28] dark:text-white">
                         {item.name}
                       </span>
-                      <span className="text-[10px] text-zinc-400">{item.date}</span>
+                      <span className="text-[#8b95a1]">{item.date}</span>
                     </div>
-                    <p className="text-zinc-600 dark:text-zinc-400 break-keep">
+                    <p className="text-[13px] text-[#4e5968] dark:text-[#c3c3c6] break-keep">
                       {item.message}
                     </p>
                   </div>
@@ -478,7 +389,7 @@ export default function Home() {
               </div>
             </div>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );
